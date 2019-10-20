@@ -1,0 +1,198 @@
+//Javascript Object Notation (JSON)
+[
+  {
+    "TownID": 1103,
+    "TownName": "Adalar",
+    "CityID": 34
+  },
+  {
+    "TownID": 1166,
+    "TownName": "Bakýrköy",
+    "CityID": 34
+  },
+  {
+    "TownID": 1183,
+    "TownName": "Beþiktaþ",
+    "CityID": 34
+  },
+  {
+    "TownID": 1185,
+    "TownName": "Beykoz",
+    "CityID": 34
+  },
+  {
+    "TownID": 1186,
+    "TownName": "Beyoðlu",
+    "CityID": 34
+  },
+  {
+    "TownID": 1237,
+    "TownName": "Çatalca",
+    "CityID": 34
+  },
+  {
+    "TownID": 1325,
+    "TownName": "Eyüp Sultan",
+    "CityID": 34
+  },
+  {
+    "TownID": 1327,
+    "TownName": "Fatih",
+    "CityID": 34
+  },
+  {
+    "TownID": 1336,
+    "TownName": "Gaziosmanpaþa",
+    "CityID": 34
+  },
+  {
+    "TownID": 1421,
+    "TownName": "Kadýköy",
+    "CityID": 34
+  },
+  {
+    "TownID": 1449,
+    "TownName": "Kartal",
+    "CityID": 34
+  },
+  {
+    "TownID": 1604,
+    "TownName": "Sarýyer",
+    "CityID": 34
+  },
+  {
+    "TownID": 1622,
+    "TownName": "Silivri",
+    "CityID": 34
+  },
+  {
+    "TownID": 1659,
+    "TownName": "Þile",
+    "CityID": 34
+  },
+  {
+    "TownID": 1663,
+    "TownName": "Þiþli",
+    "CityID": 34
+  },
+  {
+    "TownID": 1708,
+    "TownName": "Üsküdar",
+    "CityID": 34
+  },
+  {
+    "TownID": 1739,
+    "TownName": "Zeytinburnu",
+    "CityID": 34
+  },
+  {
+    "TownID": 1782,
+    "TownName": "Büyükçekmece",
+    "CityID": 34
+  },
+  {
+    "TownID": 1810,
+    "TownName": "Kaðýthane",
+    "CityID": 34
+  },
+  {
+    "TownID": 1823,
+    "TownName": "Küçükçekmece",
+    "CityID": 34
+  },
+  {
+    "TownID": 1835,
+    "TownName": "Pendik",
+    "CityID": 34
+  },
+  {
+    "TownID": 1852,
+    "TownName": "Ümraniye",
+    "CityID": 34
+  },
+  {
+    "TownID": 1886,
+    "TownName": "Bayrampaþa",
+    "CityID": 34
+  },
+  {
+    "TownID": 2003,
+    "TownName": "Avcýlar",
+    "CityID": 34
+  },
+  {
+    "TownID": 2004,
+    "TownName": "Baðcýlar",
+    "CityID": 34
+  },
+  {
+    "TownID": 2005,
+    "TownName": "Bahçelievler",
+    "CityID": 34
+  },
+  {
+    "TownID": 2010,
+    "TownName": "Güngören",
+    "CityID": 34
+  },
+  {
+    "TownID": 2012,
+    "TownName": "Maltepe",
+    "CityID": 34
+  },
+  {
+    "TownID": 2014,
+    "TownName": "Sultanbeyli",
+    "CityID": 34
+  },
+  {
+    "TownID": 2015,
+    "TownName": "Tuzla",
+    "CityID": 34
+  },
+  {
+    "TownID": 2016,
+    "TownName": "Esenler",
+    "CityID": 34
+  },
+  {
+    "TownID": 2048,
+    "TownName": "Arnavutköy",
+    "CityID": 34
+  },
+  {
+    "TownID": 2049,
+    "TownName": "Ataþehir",
+    "CityID": 34
+  },
+  {
+    "TownID": 2050,
+    "TownName": "Baþakþehir",
+    "CityID": 34
+  },
+  {
+    "TownID": 2051,
+    "TownName": "Beylikdüzü",
+    "CityID": 34
+  },
+  {
+    "TownID": 2052,
+    "TownName": "Çekmeköy",
+    "CityID": 34
+  },
+  {
+    "TownID": 2053,
+    "TownName": "Esenyurt",
+    "CityID": 34
+  },
+  {
+    "TownID": 2054,
+    "TownName": "Sancaktepe",
+    "CityID": 34
+  },
+  {
+    "TownID": 2055,
+    "TownName": "Sultangazi",
+    "CityID": 34
+  }
+]

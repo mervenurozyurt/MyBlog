@@ -1,0 +1,7 @@
+﻿<h1>Üyelik doğrulama</h1>
+<p>Aşağıdaki linke tıklayarak e-posta adresinizi doğrulayabilirsiniz.</p>
+
+<p><a href="#VerifyUrl#" target="_blank">Doğrulamak için tıklayın</a></p>
+
+<p>Sevgiler</p>
+<p>MyBlog</p>

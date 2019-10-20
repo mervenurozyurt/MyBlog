@@ -1,0 +1,706 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyBlogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Blogs">
+          <Key>
+            <PropertyRef Name="BlogId" />
+          </Key>
+          <Property Name="BlogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="BlogContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsConfirmed" Type="bit" Nullable="false" />
+          <Property Name="RecordStatusId" Type="tinyint" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RecordStatusId" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BlogId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CommentContent" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsConfirmed" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SenderName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SenderEmail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MessageContent" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NewsLetters">
+          <Key>
+            <PropertyRef Name="NewsLetterId" />
+          </Key>
+          <Property Name="NewsLetterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecordStatuses">
+          <Key>
+            <PropertyRef Name="RecordStatusId" />
+          </Key>
+          <Property Name="RecordStatusId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecordStatusName" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Towns">
+          <Key>
+            <PropertyRef Name="TownID" />
+          </Key>
+          <Property Name="TownID" Type="int" Nullable="false" />
+          <Property Name="TownName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TownId" Type="int" Nullable="false" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="IsEmailVerified" Type="bit" Nullable="false" />
+          <Property Name="UserTypeID" Type="tinyint" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="50" />
+          <Property Name="TokenValidUntil" Type="datetime" />
+          <Property Name="RecordStatusId" Type="tinyint" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersTypes">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Blogs_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blogs_RecordStatuses">
+          <End Role="RecordStatuses" Type="Self.RecordStatuses" Multiplicity="1" />
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordStatuses">
+              <PropertyRef Name="RecordStatusId" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="RecordStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blogs_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categories_RecordStatuses">
+          <End Role="RecordStatuses" Type="Self.RecordStatuses" Multiplicity="1" />
+          <End Role="Categories" Type="Self.Categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordStatuses">
+              <PropertyRef Name="RecordStatusId" />
+            </Principal>
+            <Dependent Role="Categories">
+              <PropertyRef Name="RecordStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Blogs">
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blogs">
+              <PropertyRef Name="BlogId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="BlogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Towns_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
+          <End Role="Towns" Type="Self.Towns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="Towns">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_RecordStatuses">
+          <End Role="RecordStatuses" Type="Self.RecordStatuses" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordStatuses">
+              <PropertyRef Name="RecordStatusId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RecordStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Towns">
+          <End Role="Towns" Type="Self.Towns" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Towns">
+              <PropertyRef Name="TownID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UsersTypes">
+          <End Role="UsersTypes" Type="Self.UsersTypes" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersTypes">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyBlogModelStoreContainer">
+          <EntitySet Name="Blogs" EntityType="Self.Blogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsLetters" EntityType="Self.NewsLetters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecordStatuses" EntityType="Self.RecordStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Towns" EntityType="Self.Towns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersTypes" EntityType="Self.UsersTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Blogs_Categories" Association="Self.FK_Blogs_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blogs_RecordStatuses" Association="Self.FK_Blogs_RecordStatuses">
+            <End Role="RecordStatuses" EntitySet="RecordStatuses" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blogs_Users" Association="Self.FK_Blogs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categories_RecordStatuses" Association="Self.FK_Categories_RecordStatuses">
+            <End Role="RecordStatuses" EntitySet="RecordStatuses" />
+            <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Blogs" Association="Self.FK_Comments_Blogs">
+            <End Role="Blogs" EntitySet="Blogs" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Towns_Cities" Association="Self.FK_Towns_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Towns" EntitySet="Towns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_RecordStatuses" Association="Self.FK_Users_RecordStatuses">
+            <End Role="RecordStatuses" EntitySet="RecordStatuses" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Towns" Association="Self.FK_Users_Towns">
+            <End Role="Towns" EntitySet="Towns" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UsersTypes" Association="Self.FK_Users_UsersTypes">
+            <End Role="UsersTypes" EntitySet="UsersTypes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyBlogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="BlogId" />
+          </Key>
+          <Property Name="BlogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BlogContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RecordStatusId" Type="Byte" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Blogs_Categories" FromRole="Blogs" ToRole="Categories" />
+          <NavigationProperty Name="RecordStatus" Relationship="Self.FK_Blogs_RecordStatuses" FromRole="Blogs" ToRole="RecordStatuses" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Blogs_Users" FromRole="Blogs" ToRole="Users" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Blogs" FromRole="Blogs" ToRole="Comments" />
+          <Property Name="IsConfirmed" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RecordStatusId" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Blogs" Relationship="Self.FK_Blogs_Categories" FromRole="Categories" ToRole="Blogs" />
+          <NavigationProperty Name="RecordStatus" Relationship="Self.FK_Categories_RecordStatuses" FromRole="Categories" ToRole="RecordStatuses" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Towns" Relationship="Self.FK_Towns_Cities" FromRole="Cities" ToRole="Towns" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BlogId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CommentContent" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Blog" Relationship="Self.FK_Comments_Blogs" FromRole="Comments" ToRole="Blogs" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SenderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SenderEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MessageContent" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="NewsLetter">
+          <Key>
+            <PropertyRef Name="NewsLetterId" />
+          </Key>
+          <Property Name="NewsLetterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecordStatus">
+          <Key>
+            <PropertyRef Name="RecordStatusId" />
+          </Key>
+          <Property Name="RecordStatusId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecordStatusName" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Blogs" Relationship="Self.FK_Blogs_RecordStatuses" FromRole="RecordStatuses" ToRole="Blogs" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Categories_RecordStatuses" FromRole="RecordStatuses" ToRole="Categories" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_RecordStatuses" FromRole="RecordStatuses" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Town">
+          <Key>
+            <PropertyRef Name="TownID" />
+          </Key>
+          <Property Name="TownID" Type="Int32" Nullable="false" />
+          <Property Name="TownName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Towns_Cities" FromRole="Towns" ToRole="Cities" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Towns" FromRole="Towns" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TownId" Type="Int32" Nullable="false" />
+          <Property Name="MobilePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEmailVerified" Type="Boolean" Nullable="false" />
+          <Property Name="UserTypeID" Type="Byte" Nullable="false" />
+          <Property Name="RecordStatusId" Type="Byte" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Blogs" Relationship="Self.FK_Blogs_Users" FromRole="Users" ToRole="Blogs" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="RecordStatus" Relationship="Self.FK_Users_RecordStatuses" FromRole="Users" ToRole="RecordStatuses" />
+          <NavigationProperty Name="Town" Relationship="Self.FK_Users_Towns" FromRole="Users" ToRole="Towns" />
+          <NavigationProperty Name="UsersType" Relationship="Self.FK_Users_UsersTypes" FromRole="Users" ToRole="UsersTypes" />
+          <Property Name="Token" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TokenValidUntil" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UsersType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_UsersTypes" FromRole="UsersTypes" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Blogs_Categories">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="Blogs" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blogs_RecordStatuses">
+          <End Role="RecordStatuses" Type="Self.RecordStatus" Multiplicity="1" />
+          <End Role="Blogs" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordStatuses">
+              <PropertyRef Name="RecordStatusId" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="RecordStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blogs_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Blogs" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Blogs">
+          <End Role="Blogs" Type="Self.Blog" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blogs">
+              <PropertyRef Name="BlogId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="BlogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categories_RecordStatuses">
+          <End Role="RecordStatuses" Type="Self.RecordStatus" Multiplicity="1" />
+          <End Role="Categories" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordStatuses">
+              <PropertyRef Name="RecordStatusId" />
+            </Principal>
+            <Dependent Role="Categories">
+              <PropertyRef Name="RecordStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Towns_Cities">
+          <End Role="Cities" Type="Self.City" Multiplicity="1" />
+          <End Role="Towns" Type="Self.Town" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="Towns">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_RecordStatuses">
+          <End Role="RecordStatuses" Type="Self.RecordStatus" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordStatuses">
+              <PropertyRef Name="RecordStatusId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RecordStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Towns">
+          <End Role="Towns" Type="Self.Town" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Towns">
+              <PropertyRef Name="TownID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="TownId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UsersTypes">
+          <End Role="UsersTypes" Type="Self.UsersType" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersTypes">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyBlogEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Blogs" EntityType="Self.Blog" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="NewsLetters" EntityType="Self.NewsLetter" />
+          <EntitySet Name="RecordStatuses" EntityType="Self.RecordStatus" />
+          <EntitySet Name="Towns" EntityType="Self.Town" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UsersTypes" EntityType="Self.UsersType" />
+          <AssociationSet Name="FK_Blogs_Categories" Association="Self.FK_Blogs_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blogs_RecordStatuses" Association="Self.FK_Blogs_RecordStatuses">
+            <End Role="RecordStatuses" EntitySet="RecordStatuses" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blogs_Users" Association="Self.FK_Blogs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Blogs" Association="Self.FK_Comments_Blogs">
+            <End Role="Blogs" EntitySet="Blogs" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categories_RecordStatuses" Association="Self.FK_Categories_RecordStatuses">
+            <End Role="RecordStatuses" EntitySet="RecordStatuses" />
+            <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Towns_Cities" Association="Self.FK_Towns_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Towns" EntitySet="Towns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_RecordStatuses" Association="Self.FK_Users_RecordStatuses">
+            <End Role="RecordStatuses" EntitySet="RecordStatuses" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Towns" Association="Self.FK_Users_Towns">
+            <End Role="Towns" EntitySet="Towns" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UsersTypes" Association="Self.FK_Users_UsersTypes">
+            <End Role="UsersTypes" EntitySet="UsersTypes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyBlogModelStoreContainer" CdmEntityContainer="MyBlogEntities">
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="MyBlogModel.Blog">
+              <MappingFragment StoreEntitySet="Blogs">
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="BlogContent" ColumnName="BlogContent" />
+                <ScalarProperty Name="RecordStatusId" ColumnName="RecordStatusId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="MyBlogModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="RecordStatusId" ColumnName="RecordStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="MyBlogModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="MyBlogModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="MyBlogModel.Message">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="SenderEmail" ColumnName="SenderEmail" />
+                <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsLetters">
+            <EntityTypeMapping TypeName="MyBlogModel.NewsLetter">
+              <MappingFragment StoreEntitySet="NewsLetters">
+                <ScalarProperty Name="NewsLetterId" ColumnName="NewsLetterId" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecordStatuses">
+            <EntityTypeMapping TypeName="MyBlogModel.RecordStatus">
+              <MappingFragment StoreEntitySet="RecordStatuses">
+                <ScalarProperty Name="RecordStatusId" ColumnName="RecordStatusId" />
+                <ScalarProperty Name="RecordStatusName" ColumnName="RecordStatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Towns">
+            <EntityTypeMapping TypeName="MyBlogModel.Town">
+              <MappingFragment StoreEntitySet="Towns">
+                <ScalarProperty Name="TownID" ColumnName="TownID" />
+                <ScalarProperty Name="TownName" ColumnName="TownName" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MyBlogModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="TokenValidUntil" ColumnName="TokenValidUntil" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="TownId" ColumnName="TownId" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="RecordStatusId" ColumnName="RecordStatusId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersTypes">
+            <EntityTypeMapping TypeName="MyBlogModel.UsersType">
+              <MappingFragment StoreEntitySet="UsersTypes">
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

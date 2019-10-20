@@ -1,0 +1,80 @@
+﻿@model MyBlog.DTO.CategoryDTO
+@{
+    var rs = ViewBag.RecordStatuses as List<MyBlog.DTO.RecordStatusDTO>;
+}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Kategoriler</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Kategori Düzenle</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <form method="post" class="form-horizontal form-label-left" novalidate>
+                            <input type="hidden" name="CategoryId" value="@Model.CategoryId" />
+                            <p>
+                                Blog kategorilerinin düzenleme bölümüdür.
+                            </p>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-6" for="CategoryName">
+                                    Kategori Adı <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <input id="name" class="form-control col-md-7 col-xs-12" name="CategoryName" placeholder="Kategori Adı" required="required" type="text" value="@Model.CategoryName">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-6" for="CategoryName">
+                                    Kayıt Durumu <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <select class="form-control" name="RecordStatusId">
+                                        <option value="">Seçiniz</option>
+                                        @foreach (var item in rs)
+                                        {
+                                            if (Model.RecordStatusId == item.RecordStatusId)
+                                            {
+                                                <option value="@item.RecordStatusId" selected>@item.RecordStatusName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.RecordStatusId">@item.RecordStatusName</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <a class="btn btn-danger" href="/Category">İptal</a>
+                                    <input class="btn btn-success" type="submit" name="Save" value="Güncelle" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->

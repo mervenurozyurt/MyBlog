@@ -1,0 +1,131 @@
+﻿<!-- page content -->
+@model MyBlog.DTO.UserDTO
+@{
+
+    var result = ViewBag.RecordStatuses as List<MyBlog.DTO.RecordStatusDTO>;
+}
+
+<div class="right_col" role="main">
+
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Kategori Düzenle</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Kullanıcı Düzenle </h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <form method="post" class="form-horizontal form-label-left" novalidate>
+                            <input type="hidden" name="UserId" value="@Model.UserId" />
+                            <input type="hidden" name="TownId" value="@Model.TownId" />
+                            <input type="hidden" name="IsEmailVerified" value="@Model.IsEmailVerified" />
+                            <input type="hidden" name="Token" value="@Model.Token" />
+                            <input type="hidden" name="TokenValidUntil" value="@Model.TokenValidUntil" />
+                            <input type="hidden" name="UserTypeID" value="@Model.UserTypeID" />
+                            <input type="hidden" name="CreatedDate" value="@Model.CreatedDate" />
+                            <p>
+                                Blog kullanıcılarının düzenleme bölümüdür.
+                            </p>
+                            <span class="section">Personal Info</span>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-6" for="FirstName">
+                                    Adı: <span class="required"></span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <input id="name" class="form-control col-md-7 col-xs-12" name="FirstName" placeholder="adı" required="required" type="text" value="@Model.FirstName">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-6" for="LastName">
+                                    SoyAdı: <span class="required"></span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <input id="name" class="form-control col-md-7 col-xs-12" name="LastName" placeholder="adı" required="required" type="text" value="@Model.LastName">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-6" for="EmailAddress">
+                                    Email : <span class="required"></span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <input id="name" class="form-control col-md-7 col-xs-12" name="EmailAddress" placeholder="email-adresi" required="required" type="text" value="@Model.EmailAddress">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-6" for="MobilePhone">
+                                    Telefon: <span class="required"></span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <input id="name" class="form-control col-md-7 col-xs-12" name="MobilePhone" placeholder="telefon" required="required" type="text" value="@Model.MobilePhone">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-6" for="Password">
+                                    Adı: <span class="required"></span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <input id="name" class="form-control col-md-7 col-xs-12" name="Password" placeholder="şifre" required="required" type="text" value="@Model.Password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Seçiniz</label>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <select class="form-control" name="RecordStatusId">
+                                        <option>Seçiniz..</option>
+                                        @foreach (var item in result)
+                                        {
+                                            if (Model.RecordStatusId == item.RecordStatusId)
+                                            {
+                                                <option value="@item.RecordStatusId" selected>@item.RecordStatusName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.RecordStatusId">@item.RecordStatusName</option>
+                                            }
+
+                                        }
+
+                                    </select>
+                                </div>
+
+
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <a class="btn btn-danger" href="/Users">İptal </a>
+                                    <button id="send" type="submit" class="btn btn-success" name="Update" value="Kaydet">Güncelle</button>
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
